@@ -20,19 +20,18 @@
     Weather.WEATER_TYPE_POISON_RAIN = 'poison_rain';
 
     var originalWheatherCreateBitmaps = Weather.prototype._createBitmaps;
-    var originalWheatherUpdateSprite = Weather.prototype._updateSprite;
-
     Weather.prototype._createBitmaps = function () {
         this._poisonRainBitmap = new Bitmap(1, 60);
         this._poisonRainBitmap.fillAll('purple');
         originalWheatherCreateBitmaps.apply(this, arguments);
     };
-    
+
+    var originalUpdateSprite = Weather.prototype._updateSprite;
     Weather.prototype._updateSprite = function (sprite) {
         if (this.type === Weather.WEATER_TYPE_POISON_RAIN) {
             this._updatePoisonRainSprite(sprite);
         }
-        originalWheatherUpdateSprite.apply(this, arguments);
+        originalUpdateSprite.apply(this, arguments);
     };
 
     Weather.prototype._updatePoisonRainSprite = function (sprite) {
@@ -41,5 +40,16 @@
         sprite.ax -= 6 * Math.sin(sprite.rotation);
         sprite.ay += 6 * Math.cos(sprite.rotation);
         sprite.opacity -= 6;
+    };
+
+    var originalUpdateAllSprites = Weather.prototype._updateAllSprites;
+    Weather.prototype._updateAllSprites = function () {
+        if (this.type === Weather.WEATER_TYPE_POISON_RAIN && Graphics.frameCount % 60 === 0) {
+            console.log($gameParty.members);
+            $gameParty.members().forEach(function (actor) {
+                actor.executeFloorDamage();
+            });
+        }
+        originalUpdateAllSprites.apply(this, arguments);
     };
 })();
