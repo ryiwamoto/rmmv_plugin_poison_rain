@@ -1,0 +1,14 @@
+{
+  "name": "rmmv_plugin_poison_rain",
+  "version": "0.0.1",
+  "description": "This plugin adds new weather type \"poison_rain\".",
+  "main": "PoisonRain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "RPG_MAKER_MV"
+  ],
+  "author": "ryiwamoto <konnpekigan@gmail.com>",
+  "license": "MIT"
+}
