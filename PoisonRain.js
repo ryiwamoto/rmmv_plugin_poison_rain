@@ -45,7 +45,6 @@
     var originalUpdateAllSprites = Weather.prototype._updateAllSprites;
     Weather.prototype._updateAllSprites = function () {
         if (this.type === Weather.WEATER_TYPE_POISON_RAIN && Graphics.frameCount % 60 === 0) {
-            console.log($gameParty.members);
             $gameParty.members().forEach(function (actor) {
                 actor.executeFloorDamage();
             });
